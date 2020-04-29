@@ -36,3 +36,19 @@ h2 {
 .incorrect {
     background-color: #dc3545;
 }
+
+/* HUD */
+
+.hud-item {
+    display:flex;
+    justify-content:space-between;
+}
+
+.hud-prefix {
+    text-align:center;
+    font-size: 2rem;
+}
+
+.hud-main-text {
+    text-align: center;
+}
