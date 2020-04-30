@@ -2,6 +2,7 @@ const question = document.getElementById('question');
 const choices = Array.from(document.getElementsByClassName('choice-text'))
 let questionCounterText = document.getElementById('questionCounter')
 let scoreText = document.getElementById('score')
+let scoreTimer = document.getElementById('timer')
 
 let currentQuestion = {};
 let acceptingAnswers =false;
@@ -53,13 +54,14 @@ let questions = [
     }
 ]
 
-// Constants
+
 const Correct_Bonus = 10;
 const Max_Questions = 5;
 
 startGame = () => {
     questionCounter = 0;
     score = 0;
+    timer()
     availableQuestions = [...questions];
     getNewQuestion();
 };
@@ -88,6 +90,27 @@ getNewQuestion = () => {
     acceptingAnswers = true;
 }
 
+// Timer
+var count=60;
+
+var counter=setInterval(timer, 1000); 
+
+function timer()
+{
+  count=count-1;
+  if (count <= 0)
+  {
+     clearInterval(counter);
+     return window.location.assign('end.html')
+  }
+
+  document.getElementById("timer").innerHTML=count
+}
+subtractTime = () => {
+    count = count-10
+}
+
+// For each choice correct or incorrect
 choices.forEach(choice => {
     choice.addEventListener('click', e => {
         if(!acceptingAnswers) return;
@@ -103,6 +126,9 @@ choices.forEach(choice => {
 
             if (classToApply === 'correct') {
                 incrementScore(Correct_Bonus)
+            }
+            if (classToApply == 'incorrect') {
+                subtractTime()
             }
         
         selectedChoice.parentElement.classList.add(classToApply)
@@ -120,4 +146,4 @@ incrementScore = num => {
 }
 
 
-startGame();
+startGame()
